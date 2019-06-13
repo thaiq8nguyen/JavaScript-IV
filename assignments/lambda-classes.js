@@ -85,6 +85,19 @@ const instructor =  new Instructor(
     }
 )
 
+const ben =  new Instructor(
+    {
+        name: "Ben", 
+        age: 33, 
+        location: "Chicago", 
+        specialty: "Redux", 
+        favoriteLanguages: "JS, React", 
+        catchPhrase: "Lose it!"
+    }
+)
+
+
+
 const student = new Student(
     {
         name: "Thai", 
@@ -95,6 +108,17 @@ const student = new Student(
         favoriteSubjects: ["Math", "Engineering", "Cooking"]
     }    
 )
+
+const jack =  new Student(
+    {
+        name: "Jack", 
+        age: 25, 
+        location: "Portland", 
+        previousBackground: "Developer", 
+        className: "WEB21", 
+        favoriteSubjects: ["Drawing", "English", "Cooking"]
+    }  
+)  
 
 const pm = new ProjectManager(
     {
@@ -108,11 +132,25 @@ const pm = new ProjectManager(
         catchPhrase: "Let's roll"
     }    
 )
+
+const william = new ProjectManager(
+    {
+        name: "William", 
+        age: 40, 
+        location: "Seattle", 
+        gradClassName: "CS4", 
+        favoriteInstructor: "Ben",
+        specialty: "Data Science", 
+        favoriteLanguages: "Python", 
+        catchPhrase: "Let's rock"
+    }    
+)
 /* INSTRUCTOR */
-console.log("Instructor", instructor);
+console.log("Instructor ", instructor);
 console.log("Instructor speaks ", instructor.speak());
 console.log("Instructor demos ", instructor.demo("React"));
 console.log("Instructor announces a student's grade ", instructor.grade({name: "Thai"}, "JS Fundamental"))
+;console.log("Instructor ", ben);
 console.log("*********************************************");
 /*STUDENT*/
 
@@ -121,13 +159,14 @@ console.log("Student speaks ", student.speak());
 console.log("Student's favorite subjects are: ", (student.listsSubjects()).join(", "));
 console.log("PR Assignment announcement: ", student.PRAssignment("CSS"));
 console.log("Sprint Challenge annoucement: ", student.sprintChallenge("Preprocessor"));
+console.log("Student ", jack);
 console.log("*********************************************");
 
 /*Project Manager*/
 console.log("PM ", pm);
 console.log("PM StandUp ", pm.standUp("WEB21"));
 console.log("PM Debug Code ", pm.debugCode({name: "John"}, "Javascript"))
-
+console.log("PM ", william);
 console.log("*********************************************");
 console.log("STRETCH")
 let counter = 0;
