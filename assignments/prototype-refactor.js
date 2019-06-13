@@ -25,16 +25,27 @@ Prototype Refactor
   * destroy() // prototype method that returns: `${this.name} was removed from the game.`
 */
 
-function GameObject(attrs) {
-    this.createdAt = attrs.createdAt;
-    this.name = attrs.name;
-    this.dimensions =  attrs.dimensions;
+// function GameObject(attrs) {
+//     this.createdAt = attrs.createdAt;
+//     this.name = attrs.name;
+//     this.dimensions =  attrs.dimensions;
   
-  }
+//   }
   
-  GameObject.prototype.destroy = function(){
-    return `${this.name} was removed from the game.`
-  }
+//   GameObject.prototype.destroy = function(){
+//     return `${this.name} was removed from the game.`
+//   }
+
+  class GameObject {
+      constructor(attrs) {
+        this.createdAt = attrs.createdAt;
+        this.name = attrs.name;
+        this.dimensions =  attrs.dimensions;   
+      }
+      destroy() {
+        return `${this.name} was removed from the game.`
+      }
+   }
   
   /*
     === CharacterStats ===
@@ -43,19 +54,35 @@ function GameObject(attrs) {
     * should inherit destroy() from GameObject's prototype
   */
   
-  function CharacterStats(attrs) {
-    GameObject.call(this, attrs);
-    this.healthPoints = attrs.healthPoints;
-  }
-  CharacterStats.prototype = Object.create(GameObject.prototype)
-  CharacterStats.prototype.takeDamage = function(healthPoints) {
-    this.healthPoints = this.healthPoints - healthPoints;
-    if(this.healthPoints <= 0) {
-      return `HP--${this.healthPoints}--${this.name} is dead`
-    } else {
-      return `HP--${this.healthPoints}--${this.name} took ${healthPoints} damage`
-    }
+//   function CharacterStats(attrs) {
+//     GameObject.call(this, attrs);
+//     this.healthPoints = attrs.healthPoints;
+//   }
+//   CharacterStats.prototype = Object.create(GameObject.prototype)
+//   CharacterStats.prototype.takeDamage = function(healthPoints) {
+//     this.healthPoints = this.healthPoints - healthPoints;
+//     if(this.healthPoints <= 0) {
+//       return `HP--${this.healthPoints}--${this.name} is dead`
+//     } else {
+//       return `HP--${this.healthPoints}--${this.name} took ${healthPoints} damage`
+//     }
     
+//   }
+
+  class CharacterStats extends GameObject {
+      constructor(attrs) {
+          super(attrs);
+          this.healthPoints = attrs.healthPoints;
+      }
+
+      takeDamage(healthPoints) {
+        this.healthPoints = this.healthPoints - healthPoints;
+        if(this.healthPoints <= 0) {
+            return `HP--${this.healthPoints}--${this.name} is dead`
+        } else {
+            return `HP--${this.healthPoints}--${this.name} took ${healthPoints} damage`
+        }    
+      }
   }
   
   /*
@@ -68,45 +95,84 @@ function GameObject(attrs) {
     * should inherit takeDamage() from CharacterStats
   */
   
-  function Humanoid (attrs) {
-    CharacterStats.call(this, attrs);
-    this.team =  attrs.team;
-    this.weapons = attrs.weapons;
-    this.language = attrs.language;
-  }
+//   function Humanoid (attrs) {
+//     CharacterStats.call(this, attrs);
+//     this.team =  attrs.team;
+//     this.weapons = attrs.weapons;
+//     this.language = attrs.language;
+//   }
   
-  Humanoid.prototype = Object.create(CharacterStats.prototype);
-  Humanoid.prototype.greet = function() {
-    return `${this.name} offers a greeting in ${this.language}`;
+//   Humanoid.prototype = Object.create(CharacterStats.prototype);
+//   Humanoid.prototype.greet = function() {
+//     return `${this.name} offers a greeting in ${this.language}`;
+//   }
+
+  class Humanoid extends CharacterStats {
+      constructor(attrs) {
+        super(attrs);
+        this.team =  attrs.team;
+        this.weapons = attrs.weapons;
+        this.language = attrs.language;
+      }
+      greet() {
+        return `${this.name} offers a greeting in ${this.language}`;    
+      }
   }
   
   /* Begin Stretch Tasks */
   
-  function Villain(attrs) {
+//   function Villain(attrs) {
     
-    Humanoid.call(this, attrs)
-  }
-  Villain.prototype = Object.create(Humanoid.prototype);
-  Villain.prototype.attack = function(healthPoints) {
-    if(this.healthPoints > 0) {
-      return `HP--${this.healthPoints}--${this.name} has perform a whirlwind attack dealing ${healthPoints} HP to a Lancellot.`
-    } else {
-      return `HP--0--${this.name} is dead.` 
-    }
+//     Humanoid.call(this, attrs)
+//   }
+//   Villain.prototype = Object.create(Humanoid.prototype);
+//   Villain.prototype.attack = function(healthPoints) {
+//     if(this.healthPoints > 0) {
+//       return `HP--${this.healthPoints}--${this.name} has perform a whirlwind attack dealing ${healthPoints} HP to a Lancellot.`
+//     } else {
+//       return `HP--0--${this.name} is dead.` 
+//     }
     
+//   }
+
+  class Villain extends Humanoid {
+      constructor(attrs) {
+          super(attrs);
+      }
+
+      attack(healthPoints) {
+        if(this.healthPoints > 0) {
+            return `HP--${this.healthPoints}--${this.name} has perform a whirlwind attack dealing ${healthPoints} HP to a Lancellot.`
+        } else {
+            return `HP--0--${this.name} is dead.` 
+        }    
+      }
   }
   
-  function Hero(attrs) {
-    Humanoid.call(this, attrs)
-  }
-  Hero.prototype = Object.create(Humanoid.prototype);
-  Hero.prototype.attack = function(healthPoints) {
-    if(this.healthPoints > 0){
-      return `HP--${this.healthPoints}--${this.name} has perform aerial attack dealing ${healthPoints} HP to a Orka.`
-    } else {
-      return `HP--0--${this.name} is dead.` 
-    }
+//   function Hero(attrs) {
+//     Humanoid.call(this, attrs)
+//   }
+//   Hero.prototype = Object.create(Humanoid.prototype);
+//   Hero.prototype.attack = function(healthPoints) {
+//     if(this.healthPoints > 0){
+//       return `HP--${this.healthPoints}--${this.name} has perform aerial attack dealing ${healthPoints} HP to a Orka.`
+//     } else {
+//       return `HP--0--${this.name} is dead.` 
+//     }
     
+//   }
+
+  class Hero extends Humanoid {
+      constructor(attrs) {
+        super(attrs);    
+      }
+      attack(healthPoints) {
+        if(this.healthPoints > 0){
+            return `HP--${this.healthPoints}--${this.name} has perform aerial attack dealing ${healthPoints} HP to a Orka.`
+        } else {
+            return `HP--0--${this.name} is dead.` 
+        }    
+      }
   }
   
   /* End Stretch Tasks */
