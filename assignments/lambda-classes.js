@@ -37,7 +37,7 @@ class Student extends Person {
         this.previousBackground = attributes.previousBackground
         this.className = attributes.className
         this.favoriteSubjects = attributes.favoriteSubjects
-        this.grade = 1
+        this.grade = 10
         
     }
 
@@ -132,7 +132,9 @@ console.log("*********************************************");
 console.log("STRETCH")
 let counter = 0;
 while(!student.graduate()) {
+    console.log(`${student.name}'s current grade for ${student.className} is: ${student.grade}`)
     let studentGrade = instructor.gradeStudent();
+    student.grade = 10;
     console.log(`Class grade: ${instructor.name} gives ${student.name} a ${studentGrade} for ${student.className}`);
     student.grade = student.grade + studentGrade;
     console.log(`${student.name} receives a ${student.grade} in ${student.className}`)
@@ -141,11 +143,7 @@ while(!student.graduate()) {
 
 }
 console.log(`Instructor ${instructor.name} graded ${counter} times`);
-// let studentGrade = instructor.gradeStudent();
-// console.log(`Class grade: ${instructor.name} gives ${student.name} a ${studentGrade} for ${student.className}`);
-// student.grade = student.grade + studentGrade;
-// console.log(`${student.name} receives a ${student.grade} in ${student.className}`)
-// student.graduate ? console.log(`${student.name} is passing ${student.className}`) : console.log(`${student.name} is not passing ${student.className}`)
+
 
 
 
